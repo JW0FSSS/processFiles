@@ -7,6 +7,10 @@ app.use(express.json());
 
 app.use("/dpi", dpiRouter);
 
+app.get("/health", (req, res) => {
+  res.send("Welcome to the DPI");
+});
+
 app.use((req,res,next)=>{
     res.status(404).send("Not found");
 })
