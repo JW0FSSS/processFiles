@@ -4,7 +4,7 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors());
+app.use(cors(`${process.env.CORS_ORIGIN || "*"}`));
 app.use(express.json());
 
 app.use("/dpi", dpiRouter);
@@ -22,6 +22,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-app.listen(40000, () => {
-  console.log("Server is running on port 40000");
+app.listen(process.env.PORT || 40000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 40000}`);
 });

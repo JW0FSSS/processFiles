@@ -1,4 +1,5 @@
 import { DpiTransform } from "../services/dpiService.js"; 
+import { formatFileName } from "../utils/FormatFileName.js";
 
 export async function DPIController(req,res) {
     const { dpi } = req.body;
@@ -6,9 +7,8 @@ export async function DPIController(req,res) {
 
     const formatedDpi = +dpi || 300;
     const name = req?.file?.originalname;
-    const formatedName = name.split(".")[0];
-    console.log(formatedName);
-    
+    const formatedName = formatFileName(name);
+
     try {
         const bytes = await DpiTransform({ imageBuffer, dpi: formatedDpi });
         res.json({bytes,fileName: formatedName});
